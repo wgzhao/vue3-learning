@@ -1,16 +1,56 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1> {{  title  }}</h1>
+  <div v-if="showModal">
+    <Modal :header="title" :text="msg" @close="toggleModal"/>
+  </div>
+  <div>
+
+    <button @click="toggleModal">Toggle Modal</button>
+  </div>
+
+<button @click="start" :disabled="isPlaying">Play</button>
+
+<div v-if="showReact">
+  <p>Your reaction time is {{ reactTime }}ms </p>
+</div>
+<Block v-if="isPlaying" :delay="delay" @close="closeBlock"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Modal from './components/Modal.vue';
+import Block from './components/Block.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: 'App',
+    data() {
+        return {
+            title: 'Vue.js App',
+            msg: 'Welcome to Your Vue.js App',
+            showModal: false,
+            isPlaying: false,
+            delay: null,
+            reactTime: null,
+            showReact: false
+        };
+    },
+    methods: {
+        toggleModal() {
+            this.showModal = !this.showModal;
+        },
+
+        start() {
+          this.delay = 2000 + Math.random() * 5000;
+          this.isPlaying = true;
+        },
+
+        closeBlock(time) {
+          this.isPlaying = false;
+          this.reactTime = time;
+          this.showReact = true;
+          // alert(`You took ${time}ms to click the block`);
+        }
+    },
+    components: { Modal, Block },
 }
 </script>
 
@@ -22,5 +62,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+h1 {
+  border-bottom: 1px solid #5f4949;
+  display: inline-block;
+  padding-bottom: 10px;
 }
 </style>
