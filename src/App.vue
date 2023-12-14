@@ -1,4 +1,6 @@
 <template>
+  <Nav />
+  <router-view />
   <h1> {{  title  }}</h1>
   <div v-if="showModal">
     <Modal :header="title" :text="msg" @close="toggleModal"/>
@@ -17,8 +19,10 @@
 </template>
 
 <script>
+import Nav from './views/Nav.vue';
 import Modal from './components/Modal.vue';
 import Block from './components/Block.vue';
+
 
 export default {
     name: 'App',
@@ -50,7 +54,7 @@ export default {
           // alert(`You took ${time}ms to click the block`);
         }
     },
-    components: { Modal, Block },
+    components: { Modal, Block, Nav},
 }
 </script>
 
