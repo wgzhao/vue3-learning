@@ -16,13 +16,15 @@
   <p>Your reaction time is {{ reactTime }}ms </p>
 </div>
 <Block v-if="isPlaying" :delay="delay" @close="closeBlock"/>
-</template>
 
+  <div class="posts">
+    <PostList />
+  </div>
+</template>
 <script>
 import Nav from './views/Nav.vue';
 import Modal from './components/Modal.vue';
 import Block from './components/Block.vue';
-
 
 export default {
     name: 'App',
@@ -34,7 +36,7 @@ export default {
             isPlaying: false,
             delay: null,
             reactTime: null,
-            showReact: false
+            showReact: false,
         };
     },
     methods: {
