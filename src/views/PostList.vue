@@ -14,34 +14,16 @@
 </template>
 <script>
 import SinglePost from './SinglePost.vue';
-
+import fetchPosts from '../api/fetchPosts';
 export default {
-    data() {
-        return {
-            posts: [],
-            error: '',
-        }
-    },
-
-    mounted() {
-        this.fetchPosts();
-        
+    setup() {
+        const { posts, error, load} = fetchPosts();
+        load()
+        return { posts, error }
     },
     components: {
         SinglePost
     },
-    methods: {
-        fetchPosts() {
-            fetch('http://localhost:3010/blog')
-            .then(response => response.json())
-            .then(json => {
-                this.posts = json;
-            })  
-            .catch(error => {
-                this.error = 'Not available at the moment';
-            }) 
-        }
-    }
 }
 </script>
 <style lang="en">
